@@ -52,6 +52,10 @@ video_url = html_doc.cssselect('video > source')[0].attrib['src']
 video_file = os.path.split(video_url)[1]
 html_doc.cssselect('video > source')[0].attrib['src'] = video_file
 
+# Check for missing schema
+if video_url.startswith("//"):
+    video_url = "http:" + video_url
+
 # Clean the page
 for elt in html_doc.cssselect(', '.join(e for e in cleanup_elements)):
     elt.getparent().remove(elt)
